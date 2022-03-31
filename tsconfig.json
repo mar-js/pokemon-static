@@ -1,5 +1,14 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ui/components": ["src/ui/components/"],
+      "@ui/layouts": ["src/ui/layouts/"],
+      "@assets/helpers": ["src/assets/helpers/"],
+      "@assets/interfaces": ["src/assets/interfaces/"],
+      "@assets/hooks": ["src/assets/hooks/"],
+      "@assets/styles": ["src/assets/styles/"]
+    },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
