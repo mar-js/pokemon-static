@@ -1,13 +1,16 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from "@testing-library/react"
+import { Section } from "./"
 
-import { Section } from './'
+beforeEach(() =>
+  render(
+    <Section>
+      <p>Hello</p>
+    </Section>
+  )
+)
 
-beforeEach(() => render(<Section>
-  <p>Hello</p>
-</Section>))
-
-describe('Section Layouts', () => {
-  it('Render', () => {
+describe("Section", () => {
+  it("Render", () => {
     expect(screen.getByText(/Hello/)).toBeTruthy()
   })
 })

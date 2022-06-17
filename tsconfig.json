@@ -7,7 +7,8 @@
       "@assets/helpers": ["src/assets/helpers/"],
       "@assets/interfaces": ["src/assets/interfaces/"],
       "@assets/hooks": ["src/assets/hooks/"],
-      "@assets/styles": ["src/assets/styles/"]
+      "@assets/styles": ["src/assets/styles/"],
+      "@assets/mocks": ["src/assets/mocks/"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

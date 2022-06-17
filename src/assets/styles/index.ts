@@ -9,9 +9,11 @@ export const GlobalStyles = createGlobalStyle`
 
     --black-primary: #111111;
     --black-secondary: #222222;
+    --gray: #dbdbdb4a;
     --white: #f1f1f1;
     --violet-primary: #cca6ff;
     --violet-secondary: #9342ff;
+    --red: #ff4343;
   }
 
   *,

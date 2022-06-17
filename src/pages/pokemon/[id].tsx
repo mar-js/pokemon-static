@@ -4,22 +4,20 @@ import type {
   GetStaticPaths
 } from 'next'
 
-import {
-  IGetProps,
-  IGetPokemons,
-  IPagePokemon,
-  IGetPathsProps,
-  IPokemon
-} from '@assets/interfaces'
+import { IGetProps, IPagePokemon } from '@assets/interfaces'
 
-import { Seo } from '@assets/helpers'
+import {
+  Seo,
+  GET_POKEMON,
+  GET_VALUE_PARAMS
+} from '@assets/helpers'
 import { Section } from '@ui/layouts'
 import { DetailsPokemon } from '@ui/components'
 
-const Pokemon: NextPage<IPagePokemon> = ({ data, error }) => (
+const Pokemon: NextPage<IPagePokemon> = ({ data: { id, name, sprites }, error }) => (
   <>
     <Seo
-      title={ data.name }
+      title={ name }
       description='Begin app web'
       keywords={[
         'html',
@@ -31,14 +29,14 @@ const Pokemon: NextPage<IPagePokemon> = ({ data, error }) => (
     />
     <Section>
       <DetailsPokemon
-        id={data.id}
-        img={ data.sprites.other?.dream_world.front_default || '/no-image.png' }
-        name={ data.name }
+        id={ id }
+        img={ sprites.other?.dream_world.front_default || '/no-image.png' }
+        name={ name }
         sprites={{
-          front_default: data.sprites.front_default,
-          front_shiny: data.sprites.front_shiny,
-          back_default: data.sprites.back_default,
-          back_shiny: data.sprites.back_shiny
+          front_default: sprites.front_default,
+          front_shiny: sprites.front_shiny,
+          back_default: sprites.back_default,
+          back_shiny: sprites.back_shiny
         }}
       />
     </Section>
@@ -47,17 +45,20 @@ const Pokemon: NextPage<IPagePokemon> = ({ data, error }) => (
 
 export const getStaticPaths: GetStaticPaths = async (ctx): Promise<any> => {
   try {
-    const RESPONSE = await fetch('https://pokeapi.co/api/v2/pokemon?limit=150')
-    const DATA: IGetPokemons = await RESPONSE.json()
-    const IDS: IGetPathsProps[] = DATA.results.map((pokemon, index) => ({
-      params: {
-        id: `${index + 1}`,
+    const IDS = await GET_VALUE_PARAMS('id')
+
+    if (!IDS) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false
+        }
       }
-    }))
+    }
 
     return {
       paths: [ ...IDS ],
-      fallback: false
+      fallback: 'blocking'
     }
   } catch (error: IGetProps | any) {
     const ERROR: string = error.message
@@ -75,13 +76,12 @@ export const getStaticPaths: GetStaticPaths = async (ctx): Promise<any> => {
 export const getStaticProps: GetStaticProps = async ({ params }): Promise<any> => {
   try {
     const { id } = params as { id: string }
-    const RESPONSE = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-    const DATA: IPokemon = await RESPONSE.json()
 
     return {
       props: {
-        data: DATA
-      }
+        data: await GET_POKEMON(id)
+      },
+      revalidate: 86400
     }
   } catch (error: IGetProps | any) {
     const ERROR: string = error.message

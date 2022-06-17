@@ -7,10 +7,10 @@ import {
   IGetPokemon
 } from '@assets/interfaces'
 
-import { Seo } from '@assets/helpers'
+import { GENERATOR_ID, Seo } from '@assets/helpers'
 import { Main } from '@ui/layouts'
 import Link from 'next/link'
-import { CardPokemon } from '@ui/components'
+import { CardPokemon, Grid } from '@ui/components'
 
 const Home: NextPage<IPageHome> = ({ data, error }) => (
   <>
@@ -26,20 +26,22 @@ const Home: NextPage<IPageHome> = ({ data, error }) => (
       ]}
     />
     <Main>
-      {data.map(({ img, id, name }) => (
-        <Link
-          key={Math.round((Math.random() * 151) + id)}
-          href={`/pokemon/${id}`}
-        >
-          <a>
-            <CardPokemon
-              img={ img }
-              id={ id }
-              name={ name }
-            />
-          </a>
-        </Link>
-      )) }
+      <Grid>
+        { data.map(({ img, id, name }) => (
+          <Link
+            key={ GENERATOR_ID(id) }
+            href={ `/name/${name}` }
+          >
+            <a>
+              <CardPokemon
+                img={ img }
+                id={ id }
+                name={ name }
+              />
+            </a>
+          </Link>
+        )) }
+      </Grid>
     </Main>
   </>
 )

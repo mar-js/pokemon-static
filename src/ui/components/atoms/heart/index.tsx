@@ -1,17 +1,28 @@
-import { IHeart } from '@assets/interfaces'
+import {  useEffect, useState } from 'react'
 
-import { TOGGLE_FAVORITE } from '@assets/helpers'
+import { IHeart } from '@assets/interfaces'
+import { TOGGLE_FAVORITE, GET_FAVORITE } from '@assets/helpers'
 
 import { HeartStyle } from './styles'
 
+import styles from './styles.module.css'
+
 export const Heart: React.FC<IHeart> = ({ id }) => {
+  const [isInFavorite, setIsInFavorite] = useState<boolean>(GET_FAVORITE(id))
   const HANDLE_CLICK = (id: number) => {
     TOGGLE_FAVORITE(id)
+
+    setIsInFavorite(GET_FAVORITE(id))
   }
+
+  useEffect(() => {
+    setIsInFavorite(GET_FAVORITE(id))
+  }, [ id ])
 
   return (
     <HeartStyle
       onClick={() => HANDLE_CLICK(id)}
+      className={ `${isInFavorite && styles.active}` }
       stroke="#ffffff"
       fill="#ffffff"
       strokeWidth={0}

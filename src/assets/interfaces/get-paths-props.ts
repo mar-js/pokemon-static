@@ -1,5 +1,6 @@
 export interface IGetPathsProps {
   params: {
-    id: string;
+    id?: string;
+    name?: string;
   }
 }

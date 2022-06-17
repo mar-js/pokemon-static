@@ -1,19 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from "@testing-library/react"
+import { DATA_POKEMON_NAME } from "@assets/mocks"
+import { PokemonName } from "./"
 
-import { IPokemonName } from '@assets/interfaces'
+beforeEach(() => render(<PokemonName {...DATA_POKEMON_NAME} />))
 
-import { PokemonName } from './'
-
-beforeEach(() => {
-  const DATA: IPokemonName = {
-    name: 'Pikachu'
-  }
-
-  return render(<PokemonName { ...DATA } />)
-})
-
-describe('PokemonName Component', () => {
-  it('Render', () => {
+describe("PokemonName", () => {
+  it("Render", () => {
     expect(screen.getByText(/Pikachu/)).toBeTruthy()
   })
 })

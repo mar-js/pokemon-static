@@ -1,22 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from "@testing-library/react"
+import { DATA_CARD_POKEMON } from "@assets/mocks"
+import { CardPokemon } from "./"
 
-import { ICardPokemon } from '@assets/interfaces'
+beforeEach(() => render(<CardPokemon {...DATA_CARD_POKEMON} />))
 
-import { CardPokemon } from './'
-
-beforeEach(() => {
-  const DATA: ICardPokemon = {
-    img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg',
-    id: 1,
-    name: 'Pikachu',
-    text: true
-  }
-
-  return render(<CardPokemon { ...DATA } />)
-})
-
-describe('CardPokemon Component', () => {
-  it('Render', () => {
+describe("CardPokemon", () => {
+  it("Render", () => {
     expect(screen.getByText(/Pikachu/)).toBeTruthy()
   })
 })

@@ -1,15 +1,15 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from "@testing-library/react"
 
-import { Links } from './'
+import { Links } from "./"
 
 beforeEach(() => render(<Links />))
 
-describe('Links Component', () => {
-  it('Render', () => {
-    expect(screen.getByText(/About/)).toBeTruthy()
+describe("Links", () => {
+  it("Render", () => {
+    expect(screen.getByText(/Favorites/)).toBeTruthy()
   })
 
-  it('Redirect', () => {
-    expect(screen.getByText(/About/)).toHaveAttribute('href', '/about')
+  it("Redirect", () => {
+    expect(screen.getByText(/Favorites/)).toHaveAttribute("href", "/favorites")
   })
 })

@@ -1,13 +1,16 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from "@testing-library/react"
+import { Main } from "./"
 
-import { Main } from './'
+beforeEach(() =>
+  render(
+    <Main>
+      <p>Hello</p>
+    </Main>
+  )
+)
 
-beforeEach(() => render(<Main>
-  <p>Hello</p>
-</Main>))
-
-describe('Main Layouts', () => {
-  it('Render', () => {
+describe("Main", () => {
+  it("Render", () => {
     expect(screen.getByText(/Hello/)).toBeTruthy()
   })
 })

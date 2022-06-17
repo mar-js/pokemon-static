@@ -1,0 +1,7 @@
+export * from "./details-pokemon"
+export * from "./use-get-pokemons"
+export * from "./seo"
+export * from "./pokemon-images"
+export * from "./pokemon-name"
+export * from "./pokemon-text"
+export * from "./card-pokemon"
